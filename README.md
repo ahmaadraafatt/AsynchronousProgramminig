@@ -1,169 +1,97 @@
-Multithreading Concepts in C# – Educational Demo
+# Multithreading Concepts in C# – Demo Projects
 
-This repository contains a collection of C# console projects demonstrating essential multithreading concepts in .NET, including threads, thread pools, tasks, race conditions, locking, deadlocks, and processor/thread behavior.
+This repository contains a collection of C# console projects demonstrating essential multithreading concepts in .NET, including threads, thread pools, tasks, race conditions, deadlocks, and processor/thread behavior. Each project provides a practical example of common concurrency issues and solutions.
 
-The goal of these projects is to provide clear, practical examples of how multithreading works and how to use it safely and efficiently.
+---
 
-📌 Projects Overview
-1. ThreadPool vs Task
+## Projects Overview
 
-Demonstrates the difference between ThreadPool workers and Task-based asynchronous execution.
-Includes examples of:
+### 1. ThreadPool vs Task
+Demonstrates the difference between using `ThreadPool` and `Task` for executing background operations.  
+- `ThreadPool.QueueUserWorkItem(Print)` – schedules a method in the thread pool.  
+- `Task.Run(Print)` – executes a method as a task.  
+- Example includes calculating salary for an employee using a thread pool.  
 
-ThreadPool.QueueUserWorkItem
+**Key Concepts:**  
+- ThreadPool, Task, Thread IDs, Background Threads, Thread Pool Threads.
 
-Passing objects/state to thread pool workers
+---
 
-Task.Run behavior
+### 2. Sequential Wallet Transactions
+Simulates a wallet performing sequential credit and debit operations.  
+- Random transactions are run on a single thread.  
+- Shows how transaction amounts affect wallet balance.  
 
-Checking thread metadata (ID, Name, IsBackground, IsThreadPoolThread)
+**Key Concepts:**  
+- Sequential execution, thread processor info, wallet balance updates.
 
-Simple salary calculations using Employee
+---
 
-2. Sequential Transactions
+### 3. Race Condition Example
+Demonstrates race conditions in multithreading.  
+- Two threads attempt to debit money from the same wallet.  
+- A `lock` is used to prevent inconsistent state.  
 
-Simple wallet system executed on one thread:
+**Key Concepts:**  
+- Race conditions, locking, `lock` keyword, thread safety.
 
-No concurrency → No race conditions
+---
 
-Demonstrates Processor ID + Thread ID logging
+### 4. Thread Properties and Basic Multithreading
+Shows the properties of threads and how to create and start them.  
+- Thread names, states, and joining threads.  
+- Executes wallet transactions on separate threads.  
 
-Shows correct behavior without synchronization
+**Key Concepts:**  
+- Thread states, joining threads, naming threads, background threads.
 
-3. Race Condition Example
+---
 
-Two threads debit a wallet simultaneously without locking.
-This produces inconsistent output and demonstrates why synchronization is necessary.
+### 5. Deadlock Simulation
+Simulates a deadlock scenario during money transfer between two wallets.  
+- Two threads try to transfer funds simultaneously.  
+- Demonstrates how locking order can prevent deadlocks.  
 
-4. Locked Transaction
+**Key Concepts:**  
+- Deadlock, locking, transfer manager, Monitor.TryEnter, thread safety.
 
-Safe version using:
+---
 
-lock
+## Diagram
 
-A shared _objectLock field
+A high-level diagram of the Wallet and Threads interaction:
 
-This ensures consistent values and correct behavior.
-
-5. Process and Thread Info
-
-Displays:
-
-Process ID
-
-Thread ID
-
-Processor Core Number
-
-Useful for understanding OS scheduling.
-
-6. Basic Multithreading Example
-
-Creates two threads transferring money:
-
-Demonstrates thread naming
-
-Thread states
-
-Blocking with Join()
-
-Randomized transactions
-
-7. Deadlock Example
-
-Realistic deadlock scenario:
-
-Two wallets
-
-Two transfers
-
-Two threads locking in reverse order
-
-Includes safe solution using ordered locking + optional Monitor.TryEnter.
-
-📊 System Overview – ASCII Diagram
-+-------------------------------------------------------------+
-|                     Multithreading Samples                  |
-+-------------------------------------------------------------+
-         |                     |                       |
-         |                     |                       |
-         v                     v                       v
-
-+-------------------+   +-------------------+   +---------------------+
-|  ThreadPool Demo  |   |  Sequential Demo  |   | Race Condition Demo |
-| - QueueUserWork   |   | - Single thread   |   | - No locks          |
-| - Task.Run        |   | - Safe ops        |   | - Data corruption   |
-+-------------------+   +-------------------+   +---------------------+
-                                |                       |
-                                v                       v
-
-                      +--------------------+   +----------------------+
-                      |   Locking Demo     |   |   Deadlock Demo      |
-                      | - lock keyword     |   | - Wrong lock order   |
-                      | - Safe access      |   | - Fixed version      |
-                      +--------------------+   +----------------------+
-
-                                 |
-                                 v
-
-                        +---------------------+
-                        |  Thread & Process   |
-                        | - IDs and Cores     |
-                        | - Scheduling info   |
-                        +---------------------+
-
-📐 Mermaid Diagram (GitHub-rendered)
+```mermaid
 flowchart TD
+    A[Main Thread] -->|Starts| B[Thread T1]
+    A -->|Starts| C[Thread T2]
+    B --> D[Wallet1 Debit/Credit]
+    C --> E[Wallet2 Debit/Credit]
+    D --> F[Wallet1 Balance]
+    E --> G[Wallet2 Balance]
 
-A[Multithreading Samples] --> B[ThreadPool Demo]
-A --> C[Sequential Transactions]
-A --> D[Race Condition Demo]
+    subgraph Deadlock Scenario
+        D --- E
+    end
 
-C --> E[Locking Demo]
-D --> F[Deadlock Demo]
+How to Run
 
-A --> G[Process & Thread Info]
+###1 Open the solution in Visual Studio.
 
-B:::node
-C:::node
-D:::node
-E:::node
-F:::node
-G:::node
+###2 Set the desired project as startup.
 
-classDef node fill:#1f2937,stroke:#4b5563,stroke-width:1px,color:white,border-radius:6px;
+###3 Build and run the project.
 
-💡 Key Concepts Demonstrated
+###4 Observe the console output demonstrating thread behavior.
 
-Manual thread creation using Thread
+#Key Learning Points
 
-ThreadPool worker execution
+Difference between ThreadPool and Task execution.
 
-Tasks vs Threads
+Sequential vs concurrent execution.
 
-Race conditions and why they happen
+Race conditions and how lock prevents them.
 
-Avoiding race conditions using lock
+Thread properties: Name, ID, IsBackground, ThreadState.
 
-Deadlocks and safe locking patterns
-
-ID logging (Thread, Process, CPU Core)
-
-Passing state to worker threads
-
-Background threads vs foreground threads
-
-📚 Requirements
-
-.NET 6 or later
-
-Visual Studio / Rider / VS Code
-
-🚀 How to Run
-
-Open the solution → choose any project → Run.
-All projects are independent and can be executed separately.
-
-🤝 Contributions
-
-This repository is open for extension. More demos like semaphores, mutexes, and parallel LINQ (PLINQ) can be added later.
+Deadlock detection and prevention techniques.
