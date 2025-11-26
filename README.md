@@ -76,15 +76,15 @@ flowchart TD
 
 How to Run
 
-###1 Open the solution in Visual Studio.
+### 1. Open the solution in Visual Studio.
 
-###2 Set the desired project as startup.
+### 2. Set the desired project as startup.
 
-###3 Build and run the project.
+### 3. Build and run the project.
 
-###4 Observe the console output demonstrating thread behavior.
+### 4. Observe the console output demonstrating thread behavior.
 
-#Key Learning Points
+# Key Learning Points
 
 Difference between ThreadPool and Task execution.
 
