@@ -73,25 +73,3 @@ flowchart TD
     subgraph Deadlock Scenario
         D --- E
     end
-
-How to Run
-
-Open the solution in Visual Studio.
-
-Set the desired project as startup.
-
-Build and run the project.
-
-Observe the console output demonstrating thread behavior.
-
-# Key Learning Points
-
-Difference between ThreadPool and Task execution.
-
-Sequential vs concurrent execution.
-
-Race conditions and how lock prevents them.
-
-Thread properties: Name, ID, IsBackground, ThreadState.
-
-Deadlock detection and prevention techniques.
