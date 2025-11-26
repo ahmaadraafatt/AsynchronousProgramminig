@@ -76,13 +76,13 @@ flowchart TD
 
 How to Run
 
-### 1. Open the solution in Visual Studio.
+Open the solution in Visual Studio.
 
-### 2. Set the desired project as startup.
+Set the desired project as startup.
 
-### 3. Build and run the project.
+Build and run the project.
 
-### 4. Observe the console output demonstrating thread behavior.
+Observe the console output demonstrating thread behavior.
 
 # Key Learning Points
 
